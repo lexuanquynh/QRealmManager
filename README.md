@@ -135,7 +135,7 @@ lass MigrationRepository: DatabaseConfigurable {
 
 ```
 
-### Embedded entity entity:
+### Embedded entity:
 
 <img src="images/EmbeddedSchema.png" width="800">
 Code sample:
