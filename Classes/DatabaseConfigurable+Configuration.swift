@@ -51,7 +51,7 @@ extension DatabaseConfigurable {
         }
     }
 
-    func realm() -> Realm? {
+    public  func realm() -> Realm? {
         guard let configuration = try? self.configuration(memoryType: realmMemoryType) else { return nil }
         guard let realm = try? Realm(configuration: configuration) else { return nil }
         return realm
@@ -64,7 +64,7 @@ extension DatabaseConfigurable {
     ///   - entity: entity need save
     ///   - update: update need update or not
     ///   - completion: completion success or failed
-    func save(entity: Object, update: Bool, completion: @escaping (Result<Bool, RealmErrorType>) -> Void) {
+    public  func save(entity: Object, update: Bool, completion: @escaping (Result<Bool, RealmErrorType>) -> Void) {
         guard let realm = self.realm() else {
             completion(.failure(.realmIsEmpty))
             return
@@ -91,7 +91,7 @@ extension DatabaseConfigurable {
     ///   - entities: entities list need save
     ///   - update: update need or not
     ///   - completion: completion success or failed
-    func save(entities: [Object], update: Bool = true, completion: @escaping (Result<Bool, RealmErrorType>) -> Void) {
+    public  func save(entities: [Object], update: Bool = true, completion: @escaping (Result<Bool, RealmErrorType>) -> Void) {
         guard let realm = self.realm() else {
             completion(.failure(.realmIsEmpty))
             return
@@ -116,7 +116,7 @@ extension DatabaseConfigurable {
     ///   - jsonData: jsonData data need save
     ///   - update: update need or not
     ///   - completion: completion success or failed
-    func save<T>(saveClass: T.Type, jsonData: Data, update: Bool, completion: @escaping (Result<Bool, RealmErrorType>) -> Void) where T: Object  {
+    public func save<T>(saveClass: T.Type, jsonData: Data, update: Bool, completion: @escaping (Result<Bool, RealmErrorType>) -> Void) where T: Object  {
         guard let realm = self.realm() else {
             completion(.failure(.realmIsEmpty))
             return
@@ -141,7 +141,7 @@ extension DatabaseConfigurable {
     /// - Parameters:
     ///   - entity: entity need delete
     ///   - completion: completion success or failed
-    func delete(entity: Object, completion: @escaping (Result<Bool, RealmErrorType>) -> Void) {
+    public func delete(entity: Object, completion: @escaping (Result<Bool, RealmErrorType>) -> Void) {
         guard let realm = self.realm() else {
             completion(.failure(.realmIsEmpty))
             return
@@ -159,7 +159,7 @@ extension DatabaseConfigurable {
         }
     }
 
-    func queryAll<T>(returningClass: T.Type) -> Results<T>? where T: Object {
+    public func queryAll<T>(returningClass: T.Type) -> Results<T>? where T: Object {
         guard let realm = self.realm() else {
             return nil
         }

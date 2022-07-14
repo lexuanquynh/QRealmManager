@@ -9,7 +9,7 @@ import Foundation
 import RealmSwift
 
 /// DatabaseConfigurable all defines which you must conform according
-protocol DatabaseConfigurable {
+public protocol DatabaseConfigurable {
     var realmMemoryType: RealmMemoryType { get }
 
     // This property you must assign the database name that you want.
