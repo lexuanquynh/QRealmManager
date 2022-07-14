@@ -6,7 +6,7 @@
 //
 
 import RealmSwift
-import QRealmManagerDemo
+import QRealmManager
 
 class PetRepository: DatabaseConfigurable {
     var realmMemoryType: RealmMemoryType {

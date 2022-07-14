@@ -6,7 +6,7 @@
 //
 
 import RealmSwift
-import QRealmManagerDemo
+import QRealmManager
 
 class CoffeeDrinkRepository: DatabaseConfigurable {
     var realmMemoryType: RealmMemoryType {

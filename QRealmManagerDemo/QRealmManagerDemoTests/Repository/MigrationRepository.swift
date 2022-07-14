@@ -6,7 +6,7 @@
 //
 
 import RealmSwift
-import QRealmManagerDemo
+import QRealmManager
 
 class MigrationRepository: DatabaseConfigurable {
     var realmMemoryType: RealmMemoryType {

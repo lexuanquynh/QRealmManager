@@ -6,7 +6,7 @@
 //
 
 import XCTest
-import QRealmManagerDemo
+import QRealmManager
 
 final class RealmManagerTests: XCTestCase {
     let repository = CoffeeDrinkRepository()

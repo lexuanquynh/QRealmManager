@@ -6,7 +6,7 @@
 //
 
 import RealmSwift
-import QRealmManagerDemo
+import QRealmManager
 
 class EmbeddedRepository: DatabaseConfigurable {
     var realmMemoryType: RealmMemoryType {
