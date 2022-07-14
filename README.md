@@ -52,6 +52,7 @@ class CoffeeDrinkRepository: DatabaseConfigurable {
         return nil
     }
 }
+```
 
 Run test:
 ```Swift
@@ -97,6 +98,8 @@ final class RealmManagerTests: XCTestCase {
 
 
 ### All test cases:
+
+[All test cases](QRealmManagerDemo/QRealmManagerDemoTests)
 
 <img src="images/Test.png" width="400">
 
