@@ -87,10 +87,97 @@ final class RealmManagerTests: XCTestCase {
 
 <img src="images/Simple.png" width="800">
 
+### migration:
+
+```Swift
+lass MigrationRepository: DatabaseConfigurable {
+    var realmMemoryType: RealmMemoryType {
+        return .inStorage
+    }
+
+    var schemaName: String? {
+        return "MigrationSchema"
+    }
+
+    var schemaVersion: UInt64? {
+        1
+    }
+
+    var objectTypes: [Object.Type]? {
+        return [MigrationSample.self]
+    }
+
+    var embeddedObjectTypes: [EmbeddedObject.Type]? {
+        return nil
+    }
+
+    var migrationBlock: MigrationBlock? {
+        let migrationBlock: MigrationBlock = { migration, oldSchemaVersion in
+            if oldSchemaVersion < 1 {
+                // Rename the "name" property to "yourName".
+                // The renaming operation should be done outside of calls to `enumerateObjects(ofType: _:)`.
+                migration.renameProperty(onType: MigrationSample.className(), from: "age", to: "yearsSinceBirth")
+//                migration.renameProperty(onType: MigrationSample.className(), from: "name", to: "yourName")
+            }
+
+            // The enumerateObjects(ofType:_:) method iterates over
+            // every Person object stored in the Realm file to apply the migration
+            migration.enumerateObjects(ofType: MigrationSample.className()) { oldObject, newObject in
+                // combine name fields into a single field
+                let firstName = oldObject!["firstName"] as? String
+                let lastName = oldObject!["lastName"] as? String
+                newObject!["fullName"] = "\(firstName!) \(lastName!)"
+            }
+        }
+        return migrationBlock
+    }
+}
+
+```
 
 ### Embedded entity entity:
 
 <img src="images/EmbeddedSchema.png" width="800">
+Code sample:
+
+```Swift
+class Address: EmbeddedObject {
+    @Persisted var street: String?
+    @Persisted var city: String?
+    @Persisted var country: String?
+    @Persisted var postalCode: String?
+}
+```
+
+In your repository:
+
+```Swift
+class EmbeddedRepository: DatabaseConfigurable {
+    var realmMemoryType: RealmMemoryType {
+       return .inStorage
+    }
+
+    var schemaName: String? {
+        return "EmbeddedSchema"
+    }
+
+    var schemaVersion: UInt64? {
+        0
+    }
+
+    var objectTypes: [Object.Type]? {
+        return [Contact.self]
+    }
+
+    var embeddedObjectTypes: [EmbeddedObject.Type]? {
+        return [Address.self]
+    }
+
+    var migrationBlock: MigrationBlock? {
+        return nil
+    }
+}
+```
 
 ### Multi entities:
 
