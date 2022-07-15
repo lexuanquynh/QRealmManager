@@ -44,7 +44,7 @@ pod 'QRealmManager'
 
 Then import:
 
-```
+```Swift
 import QRealmManager
 ```
 
