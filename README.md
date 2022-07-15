@@ -11,6 +11,22 @@ Pod:
 pod 'QRealmManager'
 ```
 
+Then import:
+
+```
+import QRealmManager
+```
+
+Swift package:
+
+```
+https://github.com/lexuanquynh/QRealmManagerPackage.git
+```
+Then import:
+```Swift
+import QRealmManagerPackage
+```
+
 ## Usage
 - Create your entities. Examples:
 ```Swift
