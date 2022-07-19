@@ -230,6 +230,9 @@ class EmbeddedRepository: DatabaseConfigurable {
 
 <img src="images/MoreEntities.png" width="800">
 
+### Query
+- queryAll: Using queryAll
+- query with predicate(not recommended): Using  query<T>(with predicate: NSPredicate, sortDescriptors: [NSSortDescriptor])
 
 ### All test cases:
 
