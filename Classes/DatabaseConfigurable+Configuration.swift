@@ -208,7 +208,7 @@ extension DatabaseConfigurable {
     ///   - predicate: predicate  filter
     ///   - sortDescriptors: sortDescriptors sort descriptions
     /// - Returns: nil or objects list
-    func query<T>(with predicate: NSPredicate, sortDescriptors: [NSSortDescriptor]) -> Results<T>? where T: Object {
+    public func query<T>(with predicate: NSPredicate, sortDescriptors: [NSSortDescriptor]) -> Results<T>? where T: Object {
         guard let realm = self.realm() else {
             return nil
         }
