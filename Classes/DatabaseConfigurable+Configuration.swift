@@ -159,6 +159,31 @@ extension DatabaseConfigurable {
         }
     }
 
+    /// Delete entities
+    /// - Parameters:
+    ///   - entities: entities need delete
+    ///   - completion: completion success or failed
+    public func delete(entities: [Object], completion: @escaping (Result<Bool, RealmErrorType>) -> Void) {
+        guard let realm = self.realm() else {
+            completion(.failure(.realmIsEmpty))
+            return
+        }
+
+        realm.writeAsync {
+            realm.delete(entities)
+        } onComplete: { error in
+            if error != nil {
+                NSLog("error realm transaction: \(error!)")
+                completion(.failure(RealmErrorType.transactionFailed))
+            } else {
+                completion(.success(true))
+            }
+        }
+    }
+
+    /// Query all objects
+    /// - Parameter returningClass: returningClass class type need return
+    /// - Returns: Object
     public func queryAll<T>(returningClass: T.Type) -> Results<T>? where T: Object {
         guard let realm = self.realm() else {
             return nil
