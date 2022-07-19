@@ -181,6 +181,42 @@ extension DatabaseConfigurable {
         }
     }
 
+    /// Delete all objects reference by deleteObjClass type
+    /// - Parameters:
+    ///   - deleteObjClass: deleteObjClass refrerence class need delete
+    ///   - completion: completion failed or success
+    public func deleteAll<T>(deleteObjClass: T.Type, completion: @escaping (Result<Bool, RealmErrorType>) -> Void) where T: Object {
+        guard let realm = self.realm() else {
+            completion(.failure(.realmIsEmpty))
+            return
+        }
+
+        realm.writeAsync {
+            realm.delete(realm.objects(T.self))
+        } onComplete: { error in
+            if error != nil {
+                NSLog("error realm transaction: \(error!)")
+                completion(.failure(RealmErrorType.transactionFailed))
+            } else {
+                completion(.success(true))
+            }
+        }
+    }
+
+    /// Query objects by predicate and sort descriptors
+    /// - Parameters:
+    ///   - predicate: predicate  filter
+    ///   - sortDescriptors: sortDescriptors sort descriptions
+    /// - Returns: nil or objects list
+    func query<T>(with predicate: NSPredicate, sortDescriptors: [NSSortDescriptor]) -> Results<T>? where T: Object {
+        guard let realm = self.realm() else {
+            return nil
+        }
+        let results = realm.objects(T.self).filter(predicate)
+        return results
+    }
+
+
     /// Query all objects
     /// - Parameter returningClass: returningClass class type need return
     /// - Returns: Object
